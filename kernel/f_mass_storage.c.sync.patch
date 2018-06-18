@@ -1,0 +1,11 @@
+--- f_mass_storage.c	2018-06-16 23:26:01.000000000 -0700
++++ kernel/f_mass_storage.c	2018-06-15 16:15:16.000000000 -0700
+@@ -781,7 +781,7 @@
+ 		return -EINVAL;
+ 	}
+ 	spin_lock(&curlun->filp->f_lock);
+-	curlun->filp->f_flags &= ~O_SYNC;	/* Default is not to wait */
++	curlun->filp->f_flags |= O_SYNC;	/* Default is to wait - we're using local NBD */
+ 	spin_unlock(&curlun->filp->f_lock);
+ 
+ 	/*

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+model=`cat /proc/device-tree/model`
+
+if [ "${model:0:20}" = "Raspberry Pi 3 Model" -o "${model:0:19}" = "Raspberry Pi Zero W" ]; then
+    port=ttyS0
+else
+    port=ttyAMA0
+fi
+
+# Start serial terminal on Raspberry Pi
+while :
+do
+  echo Start serial on $port
+  /sbin/getty -L $port 115200 screen
+done

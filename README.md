@@ -1,5 +1,55 @@
 
-# Contributing
+# UF2 Flashing for Linux
+
+This repo contains scripts and patches to build a sample Linux image
+based on [piCore](http://www.tinycorelinux.net/ports.html)
+for Raspberry Pi Zero.
+The image is meant to boot very quickly (currently at around 7s),
+and expose a USB mass storage device (pen drive), which can be used
+to program a Raspberry Pi Zero with [UF2 files](https://github.com/Microsoft/uf2),
+usually generated from [Microsoft MakeCode](https://github.com/Microsoft/pxt)
+and in particular from [MakeCode Arcade](https://arcade.microsoft.com).
+
+The image was tested on a Raspberry Pi Zero Rev 1.3 and Zero W Rev 1.3.
+It could theoretically work on the original Pi A/A+, but wasn't
+tested. Other models lack the OTG ID pin, and thus cannot be used in
+USB device mode.
+
+PRs are welcome!
+
+## Building
+
+Building the image requires [Docker](https://www.docker.com/).
+
+Go to `image/` and run `./build.sh`. The image will land in `built/boot/*`.
+
+### "Burning" image
+
+All files in `built/boot/` need to be copied to a FAT32-formatted SD card.
+There is no ext4 partition to worry about, and you don't need to use any 
+special software to "burn" the image.
+
+Regular SD cards come preformatted as FAT32. If you have a previous
+Raspberry Pi image on the card you can format it, or just move all files in
+the first partition into a sub-folder if it's reasonably big.
+
+Any SD card should do. You don't need much space (currently around 13MB),
+and the Pi will only read a few MBs upon startup, so the speed isn't very important.
+
+### Docker image
+
+If you want to build the Docker image (`pext/rpi`) yourself,
+use the `docker/build.sh` script. Usually, you can just pull it
+from Docker Hub (which will just happen automatically).
+The image is based on
+[sdthirlwall/raspberry-pi-cross-compiler](https://hub.docker.com/r/sdthirlwall/raspberry-pi-cross-compiler/)
+and contains stock piCore 9.0.3 and sources of its kernel.
+
+## License
+
+MIT
+
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
