@@ -23,11 +23,20 @@ Building the image requires [Docker](https://www.docker.com/).
 
 Go to `image/` and run `./build.sh`. The image will land in `built/boot/*`.
 
+After you're done building, copy one of the `arcade.cfg` files in `cfg/` folder
+to `built/boot/*` so that it ends up on the SD card.
+You can also create your own `arcade.cfg` file if you have the buttons
+connected differently.
+
 ### "Burning" image
 
 All files in `built/boot/` need to be copied to a FAT32-formatted SD card.
 There is no ext4 partition to worry about, and you don't need to use any 
 special software to "burn" the image.
+The files need to sit in the root folder of the SD card, i.e.,
+you should have file `d:/9.0.3.gz`, `d:/cmdline.txt`, as well
+as `d:/arcade.cfg` (if your SD drive is `d:/`; on macOS it will
+be `/Volumes/NO NAME/9.0.3.gz` etc).
 
 Regular SD cards come preformatted as FAT32. If you have a previous
 Raspberry Pi image on the card you can format it, or just move all files in
