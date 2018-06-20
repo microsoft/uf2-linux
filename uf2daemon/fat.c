@@ -42,6 +42,18 @@
 
 #define DBG LOG
 
+const uint8_t paritionTable[] = {
+    0xa0, 0x8b, 0x48, 0xf8, // signature
+    0x00, 0x00,             // not copy protected
+                            // part 1:
+    0x00,                   // not bootable
+    0x20, 0x21, 0x00,       // head/... start
+    0x06,                   // FAT16
+    0x0b, 0x2f, 0x04,       // head/... end
+    0x00, 0x08, 0x00, 0x00, // LBA start
+    0xe8, 0xf5, 0x00, 0x00, // LBA len
+};
+
 typedef struct {
     uint8_t JumpInstruction[3];
     uint8_t OEMInfo[8];
@@ -709,6 +721,18 @@ void readBlock(uint8_t *dest, int blkno) {
 
 void read_block(uint32_t block_no, uint8_t *data) {
     memset(data, 0, 512);
+
+    if (block_no == 0) {
+        memcpy(&data[440], paritionTable, sizeof(paritionTable));
+        data[510] = 0x55;
+        data[511] = 0xaa;
+        return;
+    }
+
+    if (block_no < 2048)
+        return;
+    
+    block_no -= 2048;
     uint32_t sectionIdx = block_no;
 
     if (block_no == 0) {

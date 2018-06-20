@@ -22,7 +22,7 @@
 
 const char *dev_file = "/dev/nbd0";
 
-#define NUM_BLOCKS NUM_FAT_BLOCKS
+#define NUM_BLOCKS (NUM_FAT_BLOCKS + 2048)
 
 uint64_t ntohll(uint64_t a) {
     return ((uint64_t)ntohl(a & 0xffffffff) << 32) | ntohl(a >> 32);

@@ -12,7 +12,7 @@
 #define UF2_VERSION_BASE "v0.1.0"
 
 // needs to be more than ~4200 and less than ~65000 (to force FAT16)
-#define NUM_FAT_BLOCKS 65000
+#define NUM_FAT_BLOCKS 62952
 
 #define UF2_VERSION UF2_VERSION_BASE " F"
 
