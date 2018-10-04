@@ -60,7 +60,9 @@ Sources are here: `https://makecode.com/_f6oRRcMAf0T0`
 
 ## License
 
-MIT
+The contents of this repo is released under the MIT license.
+
+The images that you build will contain software under all sort of licenses, including GPL.
 
 ## Contributing
 
