@@ -1,14 +1,13 @@
-
 # UF2 Flashing for Linux
 
 This repo contains scripts and patches to build a sample Linux image
 based on [piCore](http://www.tinycorelinux.net/ports.html)
-for Raspberry Pi Zero.
+for the Raspberry Pi Zero.
 The image is meant to boot very quickly (currently at around 7s),
 and expose a USB mass storage device (pen drive), which can be used
 to program a Raspberry Pi Zero with [UF2 files](https://github.com/Microsoft/uf2),
 usually generated from [Microsoft MakeCode](https://github.com/Microsoft/pxt)
-and in particular from [MakeCode Arcade](https://arcade.microsoft.com).
+and in particular from [MakeCode Arcade](https://arcade.makecode.com).
 
 The image was tested on a Raspberry Pi Zero Rev 1.3 and Zero W Rev 1.3.
 It could theoretically work on the original Pi A/A+, but wasn't
@@ -31,7 +30,7 @@ connected differently.
 ### "Burning" image
 
 All files in `built/boot/` need to be copied to a FAT32-formatted SD card.
-There is no ext4 partition to worry about, and you don't need to use any 
+There is no ext4 partition to worry about, and you don't need to use any
 special software to "burn" the image.
 The files need to sit in the root folder of the SD card, i.e.,
 you should have file `d:/9.0.3.gz`, `d:/cmdline.txt`, as well
@@ -60,9 +59,9 @@ Sources are here: `https://makecode.com/_f6oRRcMAf0T0`
 
 ## License
 
-The contents of this repo is released under the MIT license.
+The contents of this repo are released under the MIT license.
 
-The images that you build will contain software under all sort of licenses, including GPL.
+The images that you build will contain software under all sorts of licenses, including GPL.
 
 ## Contributing
 
