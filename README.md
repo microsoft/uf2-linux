@@ -54,6 +54,10 @@ The image is based on
 [sdthirlwall/raspberry-pi-cross-compiler](https://hub.docker.com/r/sdthirlwall/raspberry-pi-cross-compiler/)
 and contains stock piCore 9.0.3 and sources of its kernel.
 
+### Menu program
+
+Sources are here: `https://makecode.com/_f6oRRcMAf0T0`
+
 ## License
 
 MIT
