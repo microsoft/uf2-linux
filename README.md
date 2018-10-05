@@ -58,6 +58,16 @@ and contains stock piCore 9.0.3 and sources of its kernel.
 
 Sources are here: `https://makecode.com/_f6oRRcMAf0T0`
 
+### gdbserver
+
+By default gdbserver runs on the serial port exposed by the `g_multi` gadget.
+To connect to it on macOS run `arm-linux-gnueabihf-gdb` and then do the following:
+```
+(gdb) target extended-remote /dev/cu.usbmodem141123
+```
+where the numbers at the end will vary. Do not use `/dev/tty.usbmodem...`, as this will
+just hang.
+
 ## License
 
 The contents of this repo is released under the MIT license.
