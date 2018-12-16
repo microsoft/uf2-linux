@@ -20,12 +20,19 @@ for f in /build/built/tcz/*.tcz ; do
   rm -rf squashfs-root
 done
 cp sq/usr/local/bin/gdbserver rootfs/usr/bin/
+cp -r sq/lib rootfs/
+# copy alsa stuff
+cp -ar sq/usr/local/bin/a* rootfs/usr/local/bin/
+cp -ar sq/usr/local/sbin rootfs/usr/local/
+cp -ar sq/usr/local/lib/lib* sq/usr/local/lib/alsa* rootfs/usr/local/lib/
+cp -ar sq/usr/local/share/alsa rootfs/usr/local/share/
 for mod in snd-pcm-oss snd-mixer-oss snd-soc-core snd-bcm2835 snd-pcm-dmaengine snd-pcm snd-timer snd-compress snd ; do
   p=`find sq -name $mod.ko`
   cp $p rootfs/lib/modules/4.9.22-piCore/kernel/drivers/
 done
 
 #cp -r sq/* rootfs/
+#cp -ra sq /build/
 
 cp -r /build/image/rootfs/* rootfs/
 cp /build/uf2daemon/uf2d rootfs/sbin/

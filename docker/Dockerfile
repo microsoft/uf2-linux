@@ -9,6 +9,7 @@ RUN curl https://deb.nodesource.com/node_6.x/pool/main/n/nodejs/nodejs_6.11.0-1n
  && dpkg -i node.deb \
  && rm node.deb
 
+RUN apt-get update
 RUN apt-get install mtools cpio bc p7zip-full squashfs-tools 
 
 
@@ -53,6 +54,15 @@ RUN cp libwiringPi.a /rpxc/arm-linux-gnueabihf/lib/
 RUN cp *.h /rpxc/arm-linux-gnueabihf/libc/usr/include/
 WORKDIR /picore
 RUN rm -rf WiringPi
+
+RUN curl http://www.tinycorelinux.net/9.x/armv6/tcz/libasound.tcz > libasound.tcz
+RUN curl http://www.tinycorelinux.net/9.x/armv6/tcz/libasound-dev.tcz > libasound-dev.tcz
+RUN mkdir sq/
+RUN unsquashfs libasound.tcz && cp -r squashfs-root/* sq/ && rm -rf squashfs-root
+RUN unsquashfs libasound-dev.tcz && cp -r squashfs-root/* sq/ && rm -rf squashfs-root
+RUN cp -a sq/usr/local/lib/libasound* /rpxc/arm-linux-gnueabihf/lib/
+RUN cp -ar sq/usr/local/include/* /rpxc/arm-linux-gnueabihf/libc/usr/include/
+RUN rm -rf sq
 
 RUN useradd -m build
 USER root
