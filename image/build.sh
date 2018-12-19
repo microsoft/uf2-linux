@@ -12,4 +12,4 @@ if [ "X$f" = X ] ; then
   f=/build/image/inner.sh
 fi
 
-docker run -i -t --rm -v `cd .. && pwd`:/build pext/rpi "$f"
+docker run -i -t --rm -v `cd .. && pwd`:/build pext/rpi:alsa "$f"

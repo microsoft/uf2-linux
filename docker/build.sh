@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t pext/rpi -f Dockerfile . 
+docker build -t pext/rpi:alsa --squash -f Dockerfile . 
