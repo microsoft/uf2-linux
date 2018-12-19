@@ -15,10 +15,10 @@ RUN apt-get install mtools cpio bc p7zip-full squashfs-tools
 
 RUN mkdir -p /picore/kernel
 WORKDIR /picore/kernel
-RUN curl http://www.tinycorelinux.net/9.x/armv6/releases/RPi/src/kernel/linux-rpi-4.9.22.tar.xz  > linux-rpi-4.9.22.tar.xz
-RUN tar xf linux-rpi-4.9.22.tar.xz
-RUN mv linux-rpi-4.9.22 linux-rpi
-RUN rm linux-rpi-4.9.22.tar.xz
+RUN curl http://www.tinycorelinux.net/9.x/armv6/releases/RPi/src/kernel/linux-rpi-4.9.22.tar.xz  > linux-rpi-4.9.22.tar.xz \
+ && tar xf linux-rpi-4.9.22.tar.xz \
+ && mv linux-rpi-4.9.22 linux-rpi \
+ && rm linux-rpi-4.9.22.tar.xz
 RUN curl http://www.tinycorelinux.net/9.x/armv6/releases/RPi/src/kernel/4.9.22-piCore.config.xz | xzcat > linux-rpi/.config
 RUN curl http://www.tinycorelinux.net/9.x/armv6/releases/RPi/src/kernel/4.9.22-piCore_Module.symvers.xz | xzcat > linux-rpi/Module.symvers
 RUN curl http://www.tinycorelinux.net/9.x/armv6/releases/RPi/src/kernel/4.9.22-piCore_System.map.xz | xzcat > linux-rpi/System.map
