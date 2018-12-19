@@ -22,6 +22,7 @@ done
 cp sq/usr/local/bin/gdbserver rootfs/usr/bin/
 cp -r sq/lib rootfs/
 # copy alsa stuff
+mkdir -p rootfs/usr/local/bin/ rootfs/usr/local/share/ rootfs/usr/local/lib/ rootfs/usr/local/sbin/
 cp -ar sq/usr/local/bin/a* rootfs/usr/local/bin/
 cp -ar sq/usr/local/sbin rootfs/usr/local/
 cp -ar sq/usr/local/lib/lib* sq/usr/local/lib/alsa* rootfs/usr/local/lib/
