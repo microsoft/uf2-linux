@@ -5,10 +5,10 @@
 Button layout:
 
 ```
-1, 2 - exit game (return to menu); takes ~1s
+1, 2 - Exit game (return to menu); takes ~1s
 SELECT - Menu; currently unused
-START - Re-start game
+START - Restart game
 A, X - A
 B, Y - B
-Joystick - directions
+Joystick - Directions
 ```
