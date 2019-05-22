@@ -26,6 +26,7 @@ After you're done building, copy one of the `arcade.cfg` files in `cfg/` folder
 to `built/boot/*` so that it ends up on the SD card.
 You can also create your own `arcade.cfg` file if you have the buttons
 connected differently.
+The pin numbers in there are BCM pin numbers, not physical pin numbers, see https://pinout.xyz/
 
 ### "Burning" image
 
