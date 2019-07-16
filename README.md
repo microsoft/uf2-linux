@@ -58,7 +58,10 @@ and contains stock piCore 9.0.3 and sources of its kernel.
 
 Sources are here: `https://makecode.com/_f6oRRcMAf0T0`
 
-Here is a program for testing buttons: `https://arcade.makecode.com/81381-26574-00648-24234`
+### Button Configuration
+
+* 4 player configuration test https://github.com/microsoft/pxt-arcade/blob/master/docs/hardware/raspberry-pi/cardboard-control-panel/configurator.ts
+* Another program for testing buttons: `https://arcade.makecode.com/81381-26574-00648-24234`
 
 ### gdbserver
 
