@@ -56,7 +56,7 @@ and contains stock piCore 9.0.3 and sources of its kernel.
 
 ### Menu program
 
-Sources are here: `https://makecode.com/_f6oRRcMAf0T0`
+Sources are here: https://github.com/microsoft/pxt-arcade-cabinet-menu
 
 ### Button Configuration
 
