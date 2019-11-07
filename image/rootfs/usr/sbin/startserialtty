@@ -8,9 +8,13 @@ else
     port=ttyAMA0
 fi
 
+# ttyGS0 is USB-gadget serial
+
 # Start serial terminal on Raspberry Pi
 while :
 do
+  port=/dev/ttyGS0
   echo Start serial on $port
   /sbin/getty -L $port 115200 screen
+  sleep 3
 done

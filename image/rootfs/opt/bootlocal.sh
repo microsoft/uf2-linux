@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Start serial terminal
+#grep -q console='tty\(S\|AMA\)0' /proc/cmdline && /usr/sbin/startserialtty &
 /usr/sbin/startserialtty &
 
 # Set CPU frequency governor to ondemand (default is performance)

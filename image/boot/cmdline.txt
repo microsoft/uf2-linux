@@ -1,1 +1,2 @@
-dwc_otg.lpm_enable=0 console=ttyAMA0,115200 root=/dev/ram0 elevator=deadline rootwait quiet nortc loglevel=5 noembed waitusb=1 norestore
+#dwc_otg.lpm_enable=0 console=ttyAMA0,115200 root=/dev/ram0 elevator=deadline rootwait quiet nortc loglevel=5 noembed waitusb=1 norestore
+dwc_otg.lpm_enable=0 console=tty1 root=/dev/ram0 elevator=deadline rootwait quiet nortc loglevel=5 noembed waitusb=1 norestore
