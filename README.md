@@ -22,11 +22,17 @@ Building the image requires [Docker](https://www.docker.com/).
 
 Go to `image/` and run `./build.sh`. The image will land in `built/boot/*`.
 
+### Configuring keys
+
 After you're done building, copy one of the `arcade.cfg` files in `cfg/` folder
 to `built/boot/*` so that it ends up on the SD card.
 You can also create your own `arcade.cfg` file if you have the buttons
 connected differently.
 The pin numbers in there are BCM pin numbers, not physical pin numbers, see https://pinout.xyz/
+
+It's also possible to use regular Linux key codes if your buttons appear as a standard keyboard.
+This is enabled by setting `SCAN_CODES=/dev/input/event1` or similar.
+Use `evtest` program to figure out the scan codes and use these scan codes instead of BCM pin numbers.
 
 ### "Burning" image
 
