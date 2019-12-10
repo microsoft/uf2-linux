@@ -5,47 +5,59 @@ set -ex
 cd /build/uf2daemon
 make
 
-cd /picore/boot
+for suff in "" "3" ; do
+k=4.9.22-piCore
+if [ "X$suff" = "X3" ]; then
+k=4.19.13-piCore-v7
+fi
+
+cd /picore/boot$suff
 # remove stuff we don't support yet anyway
 rm *v7* *_cd.* *_x.* *_db.*
 # overlay files
-cp -r /build/image/boot/* .
+cp -r /build/image/boot$suff/* .
 
 # extract TCZs
 cd /picore
+rm -rf sq
 mkdir sq
-for f in /build/built/tcz/*.tcz ; do
+for f in /build/built/tcz$suff/*.tcz ; do
   unsquashfs $f
   cp -r squashfs-root/* sq/
   rm -rf squashfs-root
 done
-cp sq/usr/local/bin/gdbserver rootfs/usr/bin/
-cp -r sq/lib rootfs/
+r=rootfs$suff
+cp sq/usr/local/bin/gdbserver $r/usr/bin/
+cp -r sq/lib $r/
 # copy alsa stuff
-mkdir -p rootfs/usr/local/bin/ rootfs/usr/local/share/ rootfs/usr/local/lib/ rootfs/usr/local/sbin/
-cp -ar sq/usr/local/bin/a* rootfs/usr/local/bin/
-cp -ar sq/usr/local/sbin rootfs/usr/local/
-cp -ar sq/usr/local/lib/lib* sq/usr/local/lib/alsa* rootfs/usr/local/lib/
-cp -ar sq/usr/local/share/alsa rootfs/usr/local/share/
-for mod in snd-pcm-oss snd-mixer-oss snd-soc-core snd-bcm2835 snd-pcm-dmaengine snd-pcm snd-timer snd-compress snd ; do
-  p=`find sq -name $mod.ko`
-  cp $p rootfs/lib/modules/4.9.22-piCore/kernel/drivers/
-done
+mkdir -p $r/usr/local/bin/ $r/usr/local/share/ $r/usr/local/lib/ $r/usr/local/sbin/
+cp -ar sq/usr/local/bin/a* $r/usr/local/bin/
+cp -ar sq/usr/local/sbin $r/usr/local/
+cp -ar sq/usr/local/lib/lib* sq/usr/local/lib/alsa* $r/usr/local/lib/
+cp -ar sq/usr/local/share/alsa $r/usr/local/share/
 
-#cp -r sq/* rootfs/
+if [ "X$suff" = "X3" ]; then
+cp `find sq -name snd-\*.ko` $r/lib/modules/$k/kernel/drivers/
+else
+for mod in snd-soc-core snd-bcm2835 snd-pcm-dmaengine snd-pcm snd-timer snd-compress snd ; do
+  p=`find sq -name $mod.ko`
+  cp $p $r/lib/modules/$k/kernel/drivers/
+done
+fi
+#cp -r sq/* $r/
 #cp -ra sq /build/
 
-cp -r /build/image/rootfs/* rootfs/
-cp /build/uf2daemon/uf2d rootfs/sbin/
+cp -r /build/image/rootfs/* $r/
+cp /build/uf2daemon/uf2d $r/sbin/
 
-cd rootfs
-patch -p1 < /build/image/rootfs.patch
+cd $r
+patch -p1 < /build/image/rootfs$suff.patch
 
 # kernel modules
-cd /picore/kernel/linux-rpi
+cd /picore/kernel$suff/linux-rpi
 patch drivers/usb/gadget/function/f_mass_storage.c < /build/kernel/f_mass_storage.c.sync.patch
 ./mkusb.sh
-dst=/picore/rootfs/lib/modules/4.9.22-piCore/kernel
+dst=/picore/$r/lib/modules/$k/kernel
 
 for d in drivers/usb/dwc2 drivers/usb/gadget \
   drivers/usb/gadget/legacy drivers/usb/gadget/function drivers/usb/gadget/udc ; do
@@ -54,9 +66,11 @@ for d in drivers/usb/dwc2 drivers/usb/gadget \
 done
 
 # create new image
-cd /picore/rootfs
-find | cpio -o -R 0:0 -H newc | gzip -4 > ../boot/9.0.3.gz
+cd /picore/$r
+find | cpio -o -R 0:0 -H newc | gzip -4 > ../boot$suff/rootfs.gz
 
 # Copy out results to host
 mkdir -p /build/built
-cp -r /picore/boot /build/built/boot
+cp -r /picore/boot$suff /build/built/boot$suff
+
+done

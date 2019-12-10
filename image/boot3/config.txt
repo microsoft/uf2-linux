@@ -3,23 +3,23 @@
 # Some settings may impact device functionality. See link above for details
 
 [PI0]
-initramfs rootfs.gz followkernel
-kernel kernel4922.img
+initramfs 10.0beta5a.gz followkernel
+kernel kernel41442.img
 cmdline cmdline.txt
 
 [PI1]
-initramfs rootfs.gz followkernel
-kernel kernel4922.img
+initramfs 10.0beta5a.gz followkernel
+kernel kernel41442.img
 cmdline cmdline.txt
 
 [PI2]
-initramfs 9.0.3v7.gz followkernel
-kernel kernel4922v7.img
+initramfs 10.0beta12bv7.gz followkernel
+kernel kernel41913v7.img
 cmdline cmdline.txt
 
 [PI3]
-initramfs 9.0.3v7.gz followkernel
-kernel kernel4922v7.img
+initramfs rootfs.gz followkernel
+kernel kernel41913v7.img
 cmdline cmdline3.txt
 
 [ALL]
@@ -72,14 +72,13 @@ dtparam=i2c=on,spi=on,i2s=on
 # Enable onboard audio
 
 dtparam=audio=on
-dtoverlay=dwc2
 
 # Enable serial console
 
 enable_uart=1
 
-
 [PI3]
 dtoverlay=pi3-disable-bt
+dtoverlay=dwc2
 
 [ALL]

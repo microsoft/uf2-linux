@@ -1,0 +1,48 @@
+Only in orig/etc/init.d/: busybox-aliases
+Only in orig/etc/init.d/: dhcp.sh
+Only in orig/etc/init.d/: rc.shutdown
+Only in orig/etc/init.d/: rcS
+Only in orig/etc/init.d/: services
+Only in orig/etc/init.d/: settime.sh
+diff -ur orig/etc/init.d/tc-config rootfs/etc/init.d/tc-config
+--- orig/etc/init.d/tc-config	2018-06-15 09:35:38.000000000 -0700
++++ rootfs/etc/init.d/tc-config	2018-06-16 23:20:09.000000000 -0700
+@@ -25,8 +25,8 @@
+ 
+ # Main
+ 
+-#clear                               
+-echo "${GREEN}Booting ${YELLOW}Core $VERSION ${NORMAL}"
++#clear                               
++echo "${GREEN}Booting ${YELLOW}Core $VERSION - Arcade Pi ${NORMAL}"
+ echo "${GREEN}Running Linux Kernel ${YELLOW}$KERNEL${GREEN}.${NORMAL}"
+ export PATH=/usr/local/sbin:/usr/local/bin:"$PATH"
+ 
+@@ -102,6 +102,8 @@
+ 	done
+ fi
+ 
++depmod -a
++
+ # Start Udev to populate /dev and handle hotplug events
+ echo -n "${BLUE}Starting udev daemon for hotplug support...${NORMAL}"
+ #/sbin/udevd --daemon 2>/dev/null >/dev/null
+@@ -536,6 +538,8 @@
+ sync
+ 
+ wait $fstab_pid
++
++if false ; then
+ MSSG="${BLUE}Loading extensions...${NORMAL}"
+ if [ -n "$SHOWAPPS" ]; then
+ 	touch /etc/sysconfig/showapps
+@@ -557,6 +561,7 @@
+ 		echo -n "${RED}Press Enter key.${NORMAL}"; read ans
+ 	fi
+ fi
++fi
+ 
+ [ -n "$KEYMAP" ] || KEYMAP="us"
+ if [ -f "/usr/share/kmap/$KEYMAP.kmap" ]; then
+Only in orig/etc/init.d/: tc-restore.sh
+Only in orig/etc/init.d/: tc_noscan.lst
