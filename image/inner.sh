@@ -13,7 +13,12 @@ fi
 
 cd /picore/boot$suff
 # remove stuff we don't support yet anyway
-rm *v7* *_cd.* *_x.* *_db.*
+rm *_cd.* *_x.* *_db.*
+if [ "X$suff" = "X" ]; then
+rm *v7*
+else
+rm 10.*gz
+fi
 # overlay files
 cp -r /build/image/boot$suff/* .
 
