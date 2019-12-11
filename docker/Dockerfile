@@ -9,8 +9,8 @@ RUN curl https://deb.nodesource.com/node_6.x/pool/main/n/nodejs/nodejs_6.11.0-1n
  && dpkg -i node.deb \
  && rm node.deb
 
-RUN apt-get update
-RUN apt-get install mtools cpio bc p7zip-full squashfs-tools 
+RUN apt-get  update
+RUN apt-get install -y mtools cpio bc p7zip-full squashfs-tools bison flex libssl-dev fatcat
 
 # RPI0
 
@@ -47,35 +47,35 @@ RUN cd rootfs && zcat ../boot/9.0.3.gz | cpio -i -H newc -d
 
 RUN mkdir -p /picore/kernel3
 WORKDIR /picore/kernel3
-RUN curl http://www.tinycorelinux.net/10.x/armv7/releases/RPi/src/kernel/linux-rpi-4.19.58.tar.xz  > linux-rpi.tar.xz \
+RUN curl http://tinycorelinux.net/11.x/armv7/releases/RPi/src/kernel/linux-rpi-4.19.81.tar.xz  > linux-rpi.tar.xz \
  && tar xf linux-rpi.tar.xz \
- && mv linux-rpi-4.19.58 linux-rpi \
+ && mv linux-rpi-4.19.81 linux-rpi \
  && rm linux-rpi.tar.xz
-RUN curl http://www.tinycorelinux.net/10.x/armv7/releases/RPi/src/kernel/4.19.58-piCore-v7.config.xz | xzcat > linux-rpi/.config
-RUN curl http://www.tinycorelinux.net/10.x/armv7/releases/RPi/src/kernel/4.19.58-piCore-v7_Module.symvers.xz | xzcat > linux-rpi/Module.symvers
-RUN curl http://www.tinycorelinux.net/10.x/armv7/releases/RPi/src/kernel/4.19.58-piCore-v7_System.map.xz | xzcat > linux-rpi/System.map
+#RUN curl http://www.tinycorelinux.net/10.x/armv7/releases/RPi/src/kernel/4.19.58-piCore-v7.config.xz | xzcat > linux-rpi/.config
+RUN curl http://tinycorelinux.net/11.x/armv7/releases/RPi/src/kernel/Module.symvers > linux-rpi/Module.symvers
+RUN curl http://tinycorelinux.net/11.x/armv7/releases/RPi/src/kernel/System.map > linux-rpi/System.map
+
+RUN mkdir /picore/img3
+WORKDIR /picore/img3
+RUN curl http://tinycorelinux.net/11.x/armv7/test_releases/RPi/piCore-11.0alpha1a.zip > picore.zip
+RUN mkdir /picore/boot3
+RUN 7z x picore.zip \
+  && dd if=piCore-11.0alpha1a.img of=fat.img bs=4194304 skip=1 count=23 \
+  && fatcat fat.img -x /picore/boot3
 
 WORKDIR /picore/kernel3/linux-rpi
 
-RUN apt-get update
-RUN apt-get install -y bison flex libssl-dev
-
+COPY config .config
 RUN make ARCH=arm CROSS_COMPILE=/rpxc/bin/arm-linux-gnueabihf- modules_prepare
 RUN echo "#!/bin/sh" > mkusb.sh
 RUN echo "make ARCH=arm CROSS_COMPILE=/rpxc/bin/arm-linux-gnueabihf- SUBDIRS=drivers/usb -j10 modules" >> mkusb.sh
 RUN chmod +x mkusb.sh
 RUN ./mkusb.sh
 
-RUN mkdir /picore/img3
-WORKDIR /picore/img3
-RUN curl http://www.tinycorelinux.net/10.x/armv7/test_relases/RPi/piCore-10.0beta12b.zip > picore.zip
-RUN 7z x picore.zip
-RUN mkdir /picore/boot3
-RUN mcopy -s -i piCore-10.0beta12b.img@@4096K ::* ../boot3
 WORKDIR /picore
-RUN rm -rf img
+RUN rm -rf img3
 RUN mkdir rootfs3
-RUN cd rootfs3 && zcat ../boot3/10.0beta12bv7.gz | cpio -i -H newc -d
+RUN cd rootfs3 && zcat ../boot3/11.0alpha1av7.gz | cpio -i -H newc -d
 
 # Generic
 

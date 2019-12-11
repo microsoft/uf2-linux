@@ -8,7 +8,7 @@ make
 for suff in "" "3" ; do
 k=4.9.22-piCore
 if [ "X$suff" = "X3" ]; then
-k=4.19.13-piCore-v7
+k=4.19.81-piCore-v7
 fi
 
 cd /picore/boot$suff
@@ -17,7 +17,8 @@ rm *_cd.* *_x.* *_db.*
 if [ "X$suff" = "X" ]; then
 rm *v7*
 else
-rm 10.*gz
+rm 11.*gz
+rm kernel41981.img kernel41981v7l.img
 fi
 # overlay files
 cp -r /build/image/boot$suff/* .
@@ -42,7 +43,8 @@ cp -ar sq/usr/local/lib/lib* sq/usr/local/lib/alsa* $r/usr/local/lib/
 cp -ar sq/usr/local/share/alsa $r/usr/local/share/
 
 if [ "X$suff" = "X3" ]; then
-cp `find sq -name snd-\*.ko` $r/lib/modules/$k/kernel/drivers/
+tar zxf /build/built/modules.tar.gz
+cp `find modules -name snd\*.ko` $r/lib/modules/$k/kernel/drivers/
 else
 for mod in snd-soc-core snd-bcm2835 snd-pcm-dmaengine snd-pcm snd-timer snd-compress snd ; do
   p=`find sq -name $mod.ko`

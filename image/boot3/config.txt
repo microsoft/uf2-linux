@@ -3,23 +3,28 @@
 # Some settings may impact device functionality. See link above for details
 
 [PI0]
-initramfs 10.0beta5a.gz followkernel
-kernel kernel41442.img
+initramfs 11.0alpha1a.gz followkernel
+kernel kernel41981.img
 cmdline cmdline.txt
 
 [PI1]
-initramfs 10.0beta5a.gz followkernel
-kernel kernel41442.img
+initramfs 11.0alpha1a.gz followkernel
+kernel kernel41981.img
 cmdline cmdline.txt
 
 [PI2]
-initramfs 10.0beta12bv7.gz followkernel
-kernel kernel41913v7.img
+initramfs 11.0alpha1av7.gz followkernel
+kernel kernel41981v7.img
 cmdline cmdline.txt
 
 [PI3]
 initramfs rootfs.gz followkernel
-kernel kernel41913v7.img
+kernel kernel41981v7.img
+cmdline cmdline3.txt
+
+[PI4]
+initramfs 11.0alpha1av7l.gz followkernel
+kernel kernel41981v7l.img
 cmdline cmdline3.txt
 
 [ALL]
@@ -79,6 +84,6 @@ enable_uart=1
 
 [PI3]
 dtoverlay=pi3-disable-bt
-dtoverlay=dwc2
+dtoverlay=dwc2,dr_mode=peripheral
 
 [ALL]

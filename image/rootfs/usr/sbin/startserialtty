@@ -2,7 +2,8 @@
 
 model=`cat /proc/device-tree/model`
 
-if [ "${model:0:20}" = "Raspberry Pi 3 Model" -o "${model:0:19}" = "Raspberry Pi Zero W" ]; then
+# Pi 3A+ is also ttyAMA0
+if [ "${model:0:20}" = "Raspberry Pi 3 ModelXX" -o "${model:0:19}" = "Raspberry Pi Zero W" ]; then
     port=ttyS0
 else
     port=ttyAMA0
