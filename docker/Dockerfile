@@ -60,7 +60,11 @@ WORKDIR /picore/kernel3/linux-rpi
 RUN apt-get update
 RUN apt-get install -y bison flex libssl-dev
 
-RUN make ARCH=arm CROSS_COMPILE=/rpxc/bin/arm-linux-gnueabihf- modules_prepare
+RUN make ARCH=arm CROSS_COMPILE=/rpxc/bin/arm-linux-gnueabihf- oldconfig
+RUN make -j10 ARCH=arm CROSS_COMPILE=/rpxc/bin/arm-linux-gnueabihf- bzImage
+RUN make -j10 ARCH=arm CROSS_COMPILE=/rpxc/bin/arm-linux-gnueabihf- modules
+RUN make -j10 ARCH=arm CROSS_COMPILE=/rpxc/bin/arm-linux-gnueabihf- dtbs
+
 RUN echo "#!/bin/sh" > mkusb.sh
 RUN echo "make ARCH=arm CROSS_COMPILE=/rpxc/bin/arm-linux-gnueabihf- SUBDIRS=drivers/usb -j10 modules" >> mkusb.sh
 RUN chmod +x mkusb.sh
